@@ -1,0 +1,3 @@
+#!/bin/bash
+pan -P orion -i 0 --right
+pan -P orion -i 1 --left
