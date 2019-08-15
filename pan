@@ -1,4 +1,5 @@
-#!linuxpans_virtualenv/bin/python
+#!/bin/bash
+"exec" "$(dirname $(readlink -f $0))/linuxpans_virtualenv/bin/python" "$0" "$@"
 
 import argparse
 
