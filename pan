@@ -37,6 +37,11 @@ def parse_args():
                           dest="pan",
 			  action="store_const",
 			  const=1.0)
+    op_group.add_argument("--center",
+                          help="Pan the audio to the center",
+                          dest="pan",
+                          action="store_const",
+                          const=0.0)
     parser.add_argument("--dump", "-d",
                         help="dump proplist for the selected items",
                         default=False,
