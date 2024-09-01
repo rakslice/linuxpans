@@ -30,8 +30,8 @@ def parse_args():
     op_group.add_argument("--left",
                           help="Pan the audio to the left",
                           dest="pan",
-			  action="store_const",
-			  const=-1.0)
+                          action="store_const",
+                          const=-1.0)
     op_group.add_argument("--right",
                           help="Pan the audio to the right",
                           dest="pan",
@@ -95,18 +95,18 @@ def main():
     for i, item in enumerate(get_streams(pulse, options.process, options.pid)):
         if options.index is not None and options.index != i: continue
         pl = item.proplist
-        print (u"#%d %s %d '%s'" % (i, pl['application.process.binary'], int(pl['application.process.id']), pl['media.name'])).encode("utf-8")
-        print item.volume
+        print ((u"#%d %s %d '%s'" % (i, pl['application.process.binary'], int(pl['application.process.id']), pl['media.name'])).encode("utf-8"))
+        print (item.volume)
         if options.pan is not None:
             assert len(item.volume.values) == 2, "item does not have 2 channels; can't pan"
             left_channel_level, right_channel_level = convert_pan_to_channel_levels(options.pan)
-	    # Because PulseAudio channel and app volumes are in global terms,
+            # Because PulseAudio channel and app volumes are in global terms,
             # we can't just set a channel to 1.0, we need to scale them to the
             # existing highest channel
-	    cur_max_vol = max(item.volume.values)
-	    left_channel_level *= cur_max_vol
-	    right_channel_level *= cur_max_vol
-            print "setting volume to %r" % ([left_channel_level, right_channel_level],)
+            cur_max_vol = max(item.volume.values)
+            left_channel_level *= cur_max_vol
+            right_channel_level *= cur_max_vol
+            print ("setting volume to %r" % ([left_channel_level, right_channel_level],))
             new_volume = pulsectl.PulseVolumeInfo([left_channel_level, right_channel_level])
             pulse.volume_set(item, new_volume)
 
