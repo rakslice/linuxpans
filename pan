@@ -74,9 +74,22 @@ def text_match(expected, actual):
     return expected.lower() == actual.lower()
 
 
+def get_bin_name(item):
+    appname = item.proplist.get('application.process.binary')
+    if appname is None:
+        appname = item.proplist.get('application.id')
+    return appname
+
+
 def get_streams(pulse, process=None, pid=None):
     for item in pulse.sink_input_list():
-        if process is not None and not text_match(process, item.proplist['application.process.binary']):
+        #print("")
+        #for key, value in item.proplist.items():
+        #    print(key, " = ", value)
+        appname = get_bin_name(item)
+        if appname is None:
+            continue
+        if process is not None and not text_match(process, appname):
             continue
         if pid is not None and pid != int(item.proplist['application.process.id']):
             continue
@@ -95,7 +108,7 @@ def main():
     for i, item in enumerate(get_streams(pulse, options.process, options.pid)):
         if options.index is not None and options.index != i: continue
         pl = item.proplist
-        print ((u"#%d %s %d '%s'" % (i, pl['application.process.binary'], int(pl['application.process.id']), pl['media.name'])).encode("utf-8"))
+        print ((u"#%d %s %d '%s'" % (i, get_bin_name(item), int(pl.get('application.process.id', -1)), pl['media.name'])).encode("utf-8"))
         print (item.volume)
         if options.pan is not None:
             assert len(item.volume.values) == 2, "item does not have 2 channels; can't pan"
