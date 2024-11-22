@@ -106,9 +106,20 @@
             <bind sequence="&lt;ButtonRelease&gt;" handler="scalepan_change_cb" add="" />
             <layout manager="grid">
               <property name="column">0</property>
+              <property name="columnspan">2</property>
               <property name="padx">5</property>
               <property name="row">1</property>
               <property name="sticky">ew</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Label" id="labelPanVal" named="True">
+            <property name="text" translatable="yes">label2</property>
+            <layout manager="grid">
+              <property name="column">1</property>
+              <property name="padx">5</property>
+              <property name="row">0</property>
             </layout>
           </object>
         </child>
