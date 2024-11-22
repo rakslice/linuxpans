@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.4" author="PygubuDesigner 0.39.3">
+  <project>
+    <settings>
+      <setting id="name">linuxpans_ui_template</setting>
+      <setting id="description">a ui for linuxpans</setting>
+      <setting id="module_name">linuxpans_ui_template</setting>
+      <setting id="template">application</setting>
+      <setting id="main_widget">toplevelMain</setting>
+      <setting id="main_classname">LinuxpansApp</setting>
+      <setting id="main_menu" />
+      <setting id="output_dir">.</setting>
+      <setting id="output_dir2" />
+      <setting id="import_tkvariables">False</setting>
+      <setting id="use_ttk_styledefinition_file">False</setting>
+      <setting id="use_i18n">False</setting>
+      <setting id="all_ids_attributes">False</setting>
+      <setting id="generate_code_onsave">False</setting>
+      <setting id="use_window_centering_code">False</setting>
+      <setting id="ttk_style_definition_file" />
+    </settings>
+    <customwidgets />
+  </project>
+  <object class="tk.Toplevel" id="toplevelMain" named="True">
+    <property name="height">600</property>
+    <property name="width">600</property>
+    <child>
+      <object class="ttk.Frame" id="frame1">
+        <layout manager="pack">
+          <property name="expand">true</property>
+          <property name="fill">both</property>
+          <property name="side">top</property>
+        </layout>
+        <containerlayout manager="grid">
+          <property type="col" id="0" name="pad">5</property>
+          <property type="col" id="1" name="weight">1</property>
+        </containerlayout>
+        <child>
+          <object class="ttk.Label" id="label1">
+            <property name="text" translatable="yes">Process</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Entry" id="entryProcess" named="True">
+            <property name="width">20</property>
+            <bind sequence="&lt;KeyRelease&gt;" handler="entry_process_cb" add="" />
+            <layout manager="grid">
+              <property name="column">1</property>
+              <property name="row">0</property>
+              <property name="sticky">w</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Frame" id="frameProcesses" named="True">
+            <property name="height">200</property>
+            <property name="width">300</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="columnspan">2</property>
+              <property name="row">1</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="tk.Tk" id="tk2">
+    <property name="height">200</property>
+    <property name="width">800</property>
+    <child>
+      <object class="ttk.Frame" id="tkProcessSubform" named="True">
+        <property name="height">200</property>
+        <property name="width">200</property>
+        <layout manager="pack">
+          <property name="expand">true</property>
+          <property name="fill">x</property>
+          <property name="side">top</property>
+        </layout>
+        <child>
+          <object class="ttk.Label" id="labelProcess" named="True">
+            <property name="text" translatable="yes">Process name here</property>
+            <layout manager="pack">
+              <property name="expand">true</property>
+              <property name="fill">x</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Scale" id="scalePan" named="True">
+            <property name="from_">-1.0</property>
+            <property name="orient">horizontal</property>
+            <property name="to">1.0</property>
+            <property name="value">0</property>
+            <bind sequence="&lt;ButtonRelease&gt;" handler="scalepan_change_cb" add="" />
+            <layout manager="pack">
+              <property name="expand">true</property>
+              <property name="fill">x</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

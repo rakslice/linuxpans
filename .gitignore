@@ -1,4 +1,10 @@
 linuxpans_virtualenv
 
 *.pyc
+/.idea
+
+# generated
+/ui/linuxpans_ui_template.py
+/ui/linuxpans_ui_templateui.py
+
 
