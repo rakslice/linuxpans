@@ -68,7 +68,6 @@ class LinuxpansAppImpl(LinuxpansAppUI):
     def update_process(self, pattern):
         self.clear_process()
         for id_num, process_name in get_processes(pattern):
-            #cur_frame = tk.Frame(self.frameProcesses)
             self.cur_ids.append(id_num)
             builder = self.create_process_builder()
             self.processBuilders.append(builder)
@@ -76,16 +75,11 @@ class LinuxpansAppImpl(LinuxpansAppUI):
             print("creating " + custom_id)
 
             cur_subform : tk.Frame = builder.get_object("tkProcessSubform", self.frameProcesses, {"name": custom_id})
-            #del self.builder.objects["tkProcessSubform"]
             label: tk.Label = builder.get_object("labelProcess", cur_subform)
             label.config(text="#%s: %s" % (id_num, process_name))
-            label.pack(fill=tk.X, expand=True)
             self.processSubForms.append(cur_subform)
-            #cur_frame.pack(fill=tk.BOTH, expand=True)
-            cur_subform.pack(fill=tk.X, expand=True)
             scroll: ttk.Scale = builder.get_object("scalePan", cur_subform)
             scroll.bind("<ButtonRelease>", self.scalepan_change_cb)
-        #print(run_pan(pattern))
 
     def clear_process(self):
         for child in self.frameProcesses.winfo_children():
