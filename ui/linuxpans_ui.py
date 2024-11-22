@@ -8,6 +8,12 @@ from linuxpans_ui_template import LinuxpansAppUI
 from ui.linuxpans_ui_templateui import RESOURCE_PATHS, PROJECT_UI
 
 
+# A UI for linuxpans
+
+# TODO: once linuxpans actually supports reading the current pan values
+#       we'll need to support loading the initial values into the GUI
+
+
 def run_pan(process, id_num=None, val=None):
     import subprocess
     args = ["../pan", "-P", process]
