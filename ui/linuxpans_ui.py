@@ -78,6 +78,7 @@ class LinuxpansAppImpl(LinuxpansAppUI):
             cur_subform : tk.Frame = builder.get_object("tkProcessSubform", self.frameProcesses, {"name": custom_id})
             label: tk.Label = builder.get_object("labelProcess", cur_subform)
             label.config(text="#%s: %s" % (id_num, process_name))
+            label.bind("<ButtonRelease>", self.label_click_cb)
             self.processSubForms.append(cur_subform)
             scroll: ttk.Scale = builder.get_object("scalePan", cur_subform)
             scroll.bind("<ButtonRelease>", self.scalepan_change_cb)
@@ -112,7 +113,8 @@ class LinuxpansAppImpl(LinuxpansAppUI):
         self.update_pan_val_label(index)
         builder = self.processBuilders[index]
         scale:ttk.Scale = builder.get_object("scalePan")
-        scale.set(0.5)
+        scale.set(0)
+        self.update_pan_val_label(index)
         self.update_pan_from_scale(index, scale)
 
     def scalepan_change_cb(self, event:tk.Event=None):

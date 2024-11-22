@@ -89,6 +89,7 @@
         <child>
           <object class="ttk.Label" id="labelProcess" named="True">
             <property name="text" translatable="yes">Process name here</property>
+            <bind sequence="&lt;ButtonRelease&gt;" handler="label_click_cb" add="" />
             <layout manager="grid">
               <property name="column">0</property>
               <property name="padx">5</property>
