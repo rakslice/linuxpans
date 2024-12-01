@@ -69,6 +69,11 @@ def convert_pan_to_channel_levels(pan):
     else:
         return other_channel_level, 1.0
 
+def convert_channel_levels_to_pan(left, right):
+    pan = min(left,right)/max(left,right)
+    if left > right:
+        pan = -pan
+    return pan
 
 def text_match(expected, actual):
     return expected.lower() == actual.lower()
@@ -108,7 +113,10 @@ def main():
     for i, item in enumerate(get_streams(pulse, options.process, options.pid)):
         if options.index is not None and options.index != i: continue
         pl = item.proplist
-        print ((u"#%d %s %d '%s'" % (i, get_bin_name(item), int(pl.get('application.process.id', -1)), pl['media.name'])).encode("utf-8"))
+        cur_pan_level = 0
+        if len(item.volume.values) == 2:
+            cur_pan_level = convert_channel_levels_to_pan(*item.volume.values)
+        print ((u"#%d %s %d %f '%s'" % (i, get_bin_name(item), int(pl.get('application.process.id', -1)), cur_pan_level, pl['media.name'])).encode("utf-8"))
         print (item.volume)
         if options.pan is not None:
             assert len(item.volume.values) == 2, "item does not have 2 channels; can't pan"
