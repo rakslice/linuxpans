@@ -27,14 +27,17 @@ def run_pan(process, id_num=None, val=None):
 def get_processes(process):
     for entry in groupwise(run_pan(process).split("\n"), 2):
         print("entry", entry)
-        num_str = entry[0].split(" ", 1)[0]
+        entry_parts = entry[0].split(" ", 4)
+        num_str = entry_parts[0]
         print("num_str", repr(num_str))
+        cur_pan = float(entry_parts[3])
+        print("cur_pan", repr(cur_pan))
         if num_str.startswith("b\""):
             num_str=num_str[2:]
         assert num_str.startswith("#")
         id_num = int(num_str[1:])
         process_name = entry[0].split(" '", 1)[1][:-1]
-        yield id_num, process_name
+        yield id_num, process_name, cur_pan
 
 def groupwise(lines, n):
     i = 0
@@ -72,7 +75,7 @@ class LinuxpansAppImpl(LinuxpansAppUI):
     def update_process(self, pattern):
         self.clear_process()
         index = 0
-        for id_num, process_name in get_processes(pattern):
+        for id_num, process_name, cur_pan in get_processes(pattern):
             self.cur_ids.append(id_num)
             builder = self.create_process_builder()
             self.processBuilders.append(builder)
@@ -86,6 +89,7 @@ class LinuxpansAppImpl(LinuxpansAppUI):
             self.processSubForms.append(cur_subform)
             scroll: ttk.Scale = builder.get_object("scalePan", cur_subform)
             scroll.bind("<ButtonRelease>", self.scalepan_change_cb)
+            scroll.set(cur_pan)
 
             self.update_pan_val_label(index)
             index += 1
