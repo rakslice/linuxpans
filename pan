@@ -70,7 +70,7 @@ def convert_pan_to_channel_levels(pan):
         return other_channel_level, 1.0
 
 def convert_channel_levels_to_pan(left, right):
-    pan = min(left,right)/max(left,right)
+    pan = 1.0 - min(left,right)/max(left,right)
     if left > right:
         pan = -pan
     return pan
